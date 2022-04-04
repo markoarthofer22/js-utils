@@ -14,11 +14,7 @@ module.exports = {
         tsconfigRootDir: __dirname,
     },
     plugins: ['@typescript-eslint', 'prettier'],
-    extends: [
-        'airbnb',
-        'airbnb-typescript',
-        'prettier',
-    ],
+    extends: ['airbnb', 'airbnb-typescript', 'prettier'],
     settings: {
         'import/resolver': {
             node: {
