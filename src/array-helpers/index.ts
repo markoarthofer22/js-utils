@@ -14,6 +14,10 @@ export function sample<T>(array: T[]): T {
     return array[randomNumberBetween(0, array.length - 1)];
 }
 
+export function chunk<T>(array: T[], size = 1): any {
+    return [array.slice(0, size)].concat(chunk(array.slice(size), size));
+}
+
 export function pluck<T extends Record<string, any>>(
     array: T[],
     key: keyof T
