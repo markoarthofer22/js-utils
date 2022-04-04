@@ -1,42 +1,42 @@
 name: NPM Package Publish
 on:
-  workflow_run:
-      workflows: ['Publish tags']
-      branches: [main]
-      types:
-          - completed
-      paths-ignore:
-          - 'package.json'
-          - '.github/**'
-          - '*.md'
+    workflow_run:
+        workflows: ['Publish tags']
+        branches: [main]
+        types:
+            - completed
+        paths-ignore:
+            - 'package.json'
+            - '.github/**'
+            - '*.md'
 jobs:
     publish:
-      runs-on: ubuntu-latest
-      env:
-        NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        runs-on: ubuntu-latest
+        env:
+            NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - name: Check-out repository under $GITHUB_WORKSPACE, so workflow can access it.
-        uses: actions/checkout@v2
+        - name: Check-out repository under $GITHUB_WORKSPACE, so workflow can access it.
+          uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install
-         env:
-            NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        - name: Install dependencies
+          run: npm install
+          env:
+              NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-      - name: Build new lib
-        run: npm run build
+        - name: Build new lib
+          run: npm run build
 
-      - name: Setup Node.js (GPR)
-        uses: actions/setup-node@master
-        with:
-          node-version: '14.x'
-          registry-url: 'https://registry.npmjs.org/'
-          scope: '@markoarthofer22'
+        - name: Setup Node.js (GPR)
+          uses: actions/setup-node@master
+          with:
+              node-version: '14.x'
+              registry-url: 'https://registry.npmjs.org/'
+              scope: '@markoarthofer22'
 
-       - name: Publish package
+        - name: Publish package
           run: 'npm publish --access public'
           env:
               NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_KEY }}
