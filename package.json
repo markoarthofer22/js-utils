@@ -1,6 +1,6 @@
 {
     "name": "@markoarthofer22/js-utils",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Collection of js utils written with vanilla js (ts)",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",

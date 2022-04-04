@@ -34,3 +34,7 @@ export function groupBy<T extends Record<string, any>>(
         return { ...group, [keyValue]: [...(group[keyValue] ?? []), element] };
     }, {});
 }
+
+export function allBut<T>(list: T[], ...args: any[]): T[] {
+    return list.filter((value) => !args.includes(value));
+}
