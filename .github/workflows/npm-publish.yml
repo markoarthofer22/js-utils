@@ -1,4 +1,4 @@
-name: npm-publish
+name: NPM Package Publish
 on:
   workflow_run:
       workflows: ['Publish tags']
@@ -10,23 +10,24 @@ on:
           - '.github/**'
           - '*.md'
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    publish:
+      runs-on: ubuntu-latest
+      env:
+        NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      # Publish to npm Package Registry
-      - name: Checkout Repo
-        uses: actions/checkout@main
+      - name: Check-out repository under $GITHUB_WORKSPACE, so workflow can access it.
+        uses: actions/checkout@v2
 
-      - name: Store package name
-        run: |
-          echo 'package_name<<EOF' >> $GITHUB_ENV
-          grep -Po '"name": *\K"[^"]*"' package.json | grep -oP '"\K[^"\047]+(?=["\047])' >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+      - name: Install dependencies
+        run: npm install
+         env:
+            NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: Build new lib
+        run: npm run build
 
       - name: Setup Node.js (GPR)
         uses: actions/setup-node@master
@@ -35,15 +36,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           scope: '@markoarthofer22'
 
-      - name: Install dependencies
-        run: npm install
-        env:
-          CI: true
-
-      - name: Build new lib
-        run: npm run build
-
        - name: Publish package
-              run: 'npm publish --access public'
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_KEY }}
+          run: 'npm publish --access public'
+          env:
+              NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_KEY }}
