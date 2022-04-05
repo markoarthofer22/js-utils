@@ -1,6 +1,6 @@
 # JS UTILS
 
-[![Coverage Status](https://coveralls.io/repos/github/ultraq/array-utils/badge.svg?branch=main)](https://coveralls.io/github/markoarthofer22/js-utils?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/markoarthofer22/js-utils/badge.svg?branch=main)](https://coveralls.io/github/markoarthofer22/js-utils?branch=main)
 [![npm](https://img.shields.io/npm/v/@markoarthofer22/js-utils.svg?maxAge=3600)](https://www.npmjs.com/package/@markoarthofer22/js-utils)
 [![Bundlephobia minified size](https://img.shields.io/bundlephobia/min/@markoarthofer22/js-utils)](https://bundlephobia.com/result?p=@markoarthofer22/js-utils)
 
@@ -25,7 +25,7 @@ import {first, last ...} from "@markoarthofer22/js-utils"
 
 ## ARRAY API
 
-### first(array)
+### first(array, n)
 
 Returns first element in the array (or if you pass 2nd param, first `n` of elements)
 
@@ -35,9 +35,9 @@ Returns first element in the array (or if you pass 2nd param, first `n` of eleme
 first<T>(array: T[], n = 1 );
 ```
 
-### last(array)
+### last(array, n)
 
-Returns last element in the array ((or if you pass 2nd param, last `n` of elements))
+Returns last element in the array (or if you pass 2nd param, last `n` of elements)
 
 **usage**
 
@@ -45,7 +45,7 @@ Returns last element in the array ((or if you pass 2nd param, last `n` of elemen
 last<T>(array: T[], n = 1);
 ```
 
-### sample(array)
+### sample(array, n)
 
 Returns randomized element from the array
 
@@ -65,7 +65,7 @@ Returns randomized element from the array
 sample<T>(array: T[]);
 ```
 
-### chunk(array)
+### chunk(array, key)
 
 Returns element by key value
 
@@ -75,7 +75,7 @@ Returns element by key value
 chunk<T>(array: T[], key: keyof T);
 ```
 
-### groupBy(array)
+### groupBy(array, key)
 
 Returns object with values grouped by passed key value
 
@@ -85,9 +85,9 @@ Returns object with values grouped by passed key value
 groupBy<T>(array: T[], key: keyof T);
 ```
 
-### allBut(array)
+### allBut(array, args)
 
-Returns all elements execpt elements sent as args
+Returns all elements except elements sent as args
 
 **usage**
 
@@ -97,7 +97,7 @@ allBut<T>(array: T[], ...args: any[]);
 
 ## DOM HELPERS API
 
-### qs(selector)
+### qs(selector, parent)
 
 shorthanded function that acts as `querySelector()`. By default it takes `document` node as parent
 
@@ -107,7 +107,7 @@ shorthanded function that acts as `querySelector()`. By default it takes `docume
 qs(selector, (parent = 'document'));
 ```
 
-### qsa(sorelect)
+### qsa(selector, parent)
 
 shorthanded function that acts as `querySelectorAll()`. By default it takes `document` node as parent.
 It returns values as a new array, so you can use all of the array methods (`map`, `filter` etc..)
